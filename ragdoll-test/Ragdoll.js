@@ -38,7 +38,7 @@ function RagDoll(da,positionOffset){
   for(var i=0; i<JOINT_COUNT; i++){
     m_joints.push(null);
   }
-  
+
   // Setup the geometry
   m_shapes[BODYPART_PELVIS] = new Ammo.btCapsuleShape((0.15), (0.20));
   m_shapes[BODYPART_SPINE] = new Ammo.btCapsuleShape((0.15), (0.28));
@@ -61,7 +61,7 @@ function RagDoll(da,positionOffset){
   transform.setOrigin(new Ammo.btVector3((0.), (1.), (0.)));
   transform.op_mul(offset);
   m_bodies[BODYPART_PELVIS] = da.localCreateRigidBody((1.),transform,m_shapes[BODYPART_PELVIS]);
-  
+
   transform.setIdentity();
   transform.setOrigin(new Ammo.btVector3((0.), (1.2), (0.)));
   transform.op_mul(offset)
@@ -272,7 +272,7 @@ function RagDoll(da,positionOffset){
   hingeC1_localB.setBasis(b2);
   hingeC1_localB.setOrigin(new Ammo.btVector3(0., -0.14, 0.));
   var hingeC1 = new Ammo.btHingeConstraint(m_bodies[BODYPART_RIGHT_UPPER_ARM],
-					   m_bodies[BODYPART_RIGHT_LOWER_ARM],			   
+					   m_bodies[BODYPART_RIGHT_LOWER_ARM],
 					   hingeC1_localA,
 					   hingeC1_localB);
   */
