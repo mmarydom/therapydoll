@@ -19,12 +19,17 @@
 </head>
 <body>
   <h1>Therapy Doll Session</h1>
-    <p> Controls: Right click to drag, Scroll wheel to zoom in & out, left click to rotate, spacebar to reset </p>
+    <p> Controls: Right mouse to drag, Left mouse to zoom in & out, middle mouse to shoot, spacebar to reset </p>
   <script>
     if(window.location.hash) $("#threeinfo").hide();
     var s = new Three_ShapeDrawer();
     var d = new MyDemoApplication({shapeDrawer:s});
     $("#error").hide();
   </script>
+  <div class="select-box">
+      <button type="button" onclick="location.href='index.html';" >
+        Home
+      </button>
+    </div>
 </body>
 </html>

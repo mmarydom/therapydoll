@@ -8,9 +8,9 @@ function RagDoll(da,positionOffset){
   var BODYPART_RIGHT_UPPER_LEG=5;
   var BODYPART_RIGHT_LOWER_LEG=6;
   var BODYPART_LEFT_UPPER_ARM=7;
-  var BODYPART_LEFT_LOWER_ARM=8;
+  var BODYPART_LEFT_EAR=8;
   var BODYPART_RIGHT_UPPER_ARM=9;
-  var BODYPART_RIGHT_LOWER_ARM=10;
+  var BODYPART_RIGHT_EAR=10;
   var BODYPART_COUNT=11;
 
   var JOINT_PELVIS_SPINE=0;
@@ -40,17 +40,17 @@ function RagDoll(da,positionOffset){
   }
 
   // Setup the geometry
-  m_shapes[BODYPART_PELVIS] = new Ammo.btCapsuleShape((0.15), (0.20));
-  m_shapes[BODYPART_SPINE] = new Ammo.btCapsuleShape((0.15), (0.28));
-  m_shapes[BODYPART_HEAD] = new Ammo.btCapsuleShape((0.10), (0.05));
-  m_shapes[BODYPART_LEFT_UPPER_LEG] = new Ammo.btCapsuleShape((0.07), (0.45));
-  m_shapes[BODYPART_LEFT_LOWER_LEG] = new Ammo.btCapsuleShape((0.05), (0.37));
-  m_shapes[BODYPART_RIGHT_UPPER_LEG] = new Ammo.btCapsuleShape((0.07), (0.45));
-  m_shapes[BODYPART_RIGHT_LOWER_LEG] = new Ammo.btCapsuleShape((0.05), (0.37));
-  m_shapes[BODYPART_LEFT_UPPER_ARM] = new Ammo.btCapsuleShape((0.05), (0.33));
-  m_shapes[BODYPART_LEFT_LOWER_ARM] = new Ammo.btCapsuleShape((0.04), (0.25));
-  m_shapes[BODYPART_RIGHT_UPPER_ARM] = new Ammo.btCapsuleShape((0.05), (0.33));
-  m_shapes[BODYPART_RIGHT_LOWER_ARM] = new Ammo.btCapsuleShape((0.04), (0.25));
+  m_shapes[BODYPART_PELVIS] = new Ammo.btCapsuleShape((0.20), (0.20));
+  m_shapes[BODYPART_SPINE] = new Ammo.btCapsuleShape((0.20), (0.28));
+  m_shapes[BODYPART_HEAD] = new Ammo.btSphereShape((0.45), (0.15));
+  m_shapes[BODYPART_LEFT_UPPER_LEG] = new Ammo.btCapsuleShape((0.15), (0.45));
+  m_shapes[BODYPART_LEFT_LOWER_LEG] = new Ammo.btCapsuleShape((0.15), (0.37));
+  m_shapes[BODYPART_RIGHT_UPPER_LEG] = new Ammo.btCapsuleShape((0.15), (0.45));
+  m_shapes[BODYPART_RIGHT_LOWER_LEG] = new Ammo.btCapsuleShape((0.15), (0.37));
+  m_shapes[BODYPART_LEFT_UPPER_ARM] = new Ammo.btCapsuleShape((0.15), (0.33));
+  m_shapes[BODYPART_LEFT_EAR] = new Ammo.btCapsuleShape((0.10), (0.25));
+  m_shapes[BODYPART_RIGHT_UPPER_ARM] = new Ammo.btCapsuleShape((0.15), (0.33));
+  m_shapes[BODYPART_RIGHT_EAR] = new Ammo.btCapsuleShape((0.10), (0.25));
 
   // Setup all the rigid bodies
   var offset = new Ammo.btTransform(); offset.setIdentity();
@@ -98,10 +98,10 @@ function RagDoll(da,positionOffset){
   m_bodies[BODYPART_LEFT_UPPER_ARM] = da.localCreateRigidBody((1.), transform, m_shapes[BODYPART_LEFT_UPPER_ARM]);
 
   transform.setIdentity();
-  transform.setOrigin(new Ammo.btVector3((-0.7), (1.45), (0.)));
+  transform.setOrigin(new Ammo.btVector3((0), (1.45), (0.)));
   transform.getBasis().setEulerZYX(0,0,Math.PI/2);
   transform.op_mul(offset);
-  m_bodies[BODYPART_LEFT_LOWER_ARM] = da.localCreateRigidBody((1.), transform, m_shapes[BODYPART_LEFT_LOWER_ARM]);
+  m_bodies[BODYPART_LEFT_EAR] = da.localCreateRigidBody((1.), transform, m_shapes[BODYPART_LEFT_EAR]);
 
   transform.setIdentity();
   transform.setOrigin(new Ammo.btVector3((0.35), (1.45), (0.)));
@@ -110,10 +110,10 @@ function RagDoll(da,positionOffset){
   m_bodies[BODYPART_RIGHT_UPPER_ARM] = da.localCreateRigidBody((1.), transform, m_shapes[BODYPART_RIGHT_UPPER_ARM]);
 
   transform.setIdentity();
-  transform.setOrigin(new Ammo.btVector3((0.7), (1.45), (0.)));
+  transform.setOrigin(new Ammo.btVector3((0), (1.45), (0.)));
   transform.getBasis().setEulerZYX(0,0,-Math.PI/2);
   transform.op_mul(offset);
-  m_bodies[BODYPART_RIGHT_LOWER_ARM] = da.localCreateRigidBody((1.), transform, m_shapes[BODYPART_RIGHT_LOWER_ARM]);
+  m_bodies[BODYPART_RIGHT_EAR] = da.localCreateRigidBody((1.), transform, m_shapes[BODYPART_RIGHT_EAR]);
 
   // Setup some damping on the m_bodies
   for(var i=0; i<BODYPART_COUNT; i++){
@@ -235,9 +235,9 @@ function RagDoll(da,positionOffset){
   //		hingeC.setLimit((-Math.PI/2), (0));
   hingeC.setLimit((0), (Math.PI/2));
   */
-  hingeC =  new Ammo.btHingeConstraint(m_bodies[BODYPART_LEFT_UPPER_ARM],
-				       m_bodies[BODYPART_LEFT_LOWER_ARM],
-				       new Ammo.btVector3(0,0.18,0),
+  hingeC =  new Ammo.btHingeConstraint(m_bodies[BODYPART_HEAD],
+				       m_bodies[BODYPART_LEFT_EAR],
+				       new Ammo.btVector3(0,0.40,0),
 				       new Ammo.btVector3(0,-0.14,0),
 				       new Ammo.btVector3(0,0,0.18),
 				       new Ammo.btVector3(0,0,0.14));
@@ -279,9 +279,9 @@ function RagDoll(da,positionOffset){
   /*hingeC1.setFrames(hingeC1_localA,
     hingeC1_localB);*/
 
-  var hingeC1 = new Ammo.btHingeConstraint(m_bodies[BODYPART_RIGHT_UPPER_ARM],
-					   m_bodies[BODYPART_RIGHT_LOWER_ARM],
-					   new Ammo.btVector3(0,0.18,0),
+  var hingeC1 = new Ammo.btHingeConstraint(m_bodies[BODYPART_HEAD],
+					   m_bodies[BODYPART_RIGHT_EAR],
+					   new Ammo.btVector3(0,0.40,0),
 					   new Ammo.btVector3(0,-0.14,0),
 					   new Ammo.btVector3(0,0,0.18),
 					   new Ammo.btVector3(0,0,0.14));

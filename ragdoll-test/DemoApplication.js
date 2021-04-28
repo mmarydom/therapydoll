@@ -14,7 +14,7 @@
  * @ctor
  */
 function DemoApplication(options){
-  
+
   if(!(Ammo && ShapeDrawer && Float32Array))
     throw "Needs Ammo and ShapeDrawer!";
 
@@ -27,7 +27,7 @@ function DemoApplication(options){
    */
   this.settings = settings;
   $.extend(settings,options);
-  
+
   var th = this;
 
   // DemoApplication things
@@ -85,7 +85,7 @@ function DemoApplication(options){
   /**
    * Local box body counter
    * @private
-   */ 
+   */
   this.shootboxcounter = 0;
   /**
    * Local storage of box bodies
@@ -125,7 +125,7 @@ function DemoApplication(options){
       th.m_pickConstraint = null;
     });
   m_shapeDrawer.canvas.oncontextmenu = function(){ return false; };
-  
+
   function mapKeyCodeToString(keycode){
     switch(keycode){
     case th.keys.LEFT:  return 'left';  break;
@@ -184,14 +184,14 @@ function DemoApplication(options){
    */
   this.nstats = nstats;
 
-  /** 
+  /**
    * Storage array for drawing time (milliseconds)
    * @private
    */
   this.drawstats = drawstats;
   var totalstats = new Float32Array(nstats);
 
-  /** 
+  /**
    * Storage array for drawing time (milliseconds)
    * @private
    */
@@ -401,7 +401,7 @@ DemoApplication.prototype.setAzi = function(azi){
 /**
  * Set elevation camera position in degrees
  * @tparam float ele
- */	
+ */
 DemoApplication.prototype.setEle = function(ele){
   this.m_ele = ele;
 };
@@ -433,7 +433,7 @@ DemoApplication.prototype.toggleIdle = function(){
  * A small number...
  * @treturn float
  */
-DemoApplication.prototype.SIMD_EPSILON = 0.01;	
+DemoApplication.prototype.SIMD_EPSILON = 0.01;
 
 /**
  * Update the camera position. Should be done after changing camera orientation parameters.
@@ -485,7 +485,7 @@ DemoApplication.prototype.updateCamera = function(){
 			      s2,
 			      s3);
   }
-			    
+
   var rollmat = new Ammo.btMatrix3x3();
   rollmat.setRotation(roll);
   var rotmat = new Ammo.btMatrix3x3();
@@ -596,7 +596,7 @@ DemoApplication.prototype.clientResetScene = function(){
 
   if(this.m_dynamicsWorld){
     var numObjects = this.m_bodies.length;//this.m_dynamicsWorld.getNumCollisionObjects();
-	
+
     ///create a copy of the array, not a reference!
     //var copyArray = this.m_dynamicsWorld.getCollisionObjectArray();
     for(var i=0; i<numObjects; i++){
@@ -624,7 +624,7 @@ DemoApplication.prototype.clientResetScene = function(){
 	    .getOverlappingPairCache()
 	    .cleanProxyFromPairs(body.getBroadphaseHandle(),
 				 this.getDynamicsWorld().getDispatcher());
-	
+
 	//body = colObj;
 	if (body && !body.isStaticObject()){
 	  /*
@@ -634,9 +634,9 @@ DemoApplication.prototype.clientResetScene = function(){
 	  body.setLinearVelocity(this.tVec(0,0,0));
 	  body.setAngularVelocity(this.tVec(0,0,0));
 	}
-      }  
+      }
     }
-    
+
     ///reset some internal cached data in the broadphase
     this.m_dynamicsWorld.getBroadphase().resetPool(this.getDynamicsWorld().getDispatcher());
     this.m_dynamicsWorld.getConstraintSolver().reset();
@@ -670,7 +670,7 @@ DemoApplication.prototype.tVec = function(x,y,z){
 };
 
 /**
- * To save some memory leaking. 
+ * To save some memory leaking.
  * @see tVec()
  * @tparam float x
  * @tparam float y
@@ -682,7 +682,7 @@ DemoApplication.prototype.tQuat = function(x,y,z,w){
   this.tempQuaternion.setValue(x,y,z,w);
   return this.tempQuaternion;
 };
-    
+
 /**
  * Shoot a box
  * @todo make private to DemoApplication?
@@ -705,7 +705,7 @@ DemoApplication.prototype.shootBox = function(destination){
       body = this.shootboxbodies[this.shootboxcounter%this.shootboxbodies.length];
     }
     body.setLinearFactor(this.tVec(1,1,1));
-    
+
     var linVel = this.tVec(destination.x()-camPos.x(),
 			   destination.y()-camPos.y(),
 			   destination.z()-camPos.z());
@@ -749,7 +749,7 @@ DemoApplication.prototype.getRayTo = function(x, y){
       aspect = this.m_glScreenHeight / this.m_glScreenWidth;
       extents.setValue(1.0, aspect*1.0, 0);
     }
-		
+
     extents.op_mul(this.m_cameraDistance);
 
     var lower = new Ammo.btVector3(this.m_cameraTargetPosition).op_sub(extents); //vec
@@ -757,7 +757,7 @@ DemoApplication.prototype.getRayTo = function(x, y){
 
     var u = x / this.m_glScreenWidth;
     var v = (this.m_glScreenHeight - y) / this.m_glScreenHeight;
-		
+
     var p = new Ammo.btVector3(0,0,0);
     p.setValue((1.0 - u) * lower.getX() + u * upper.getX(),
 	       (1.0 - v) * lower.getY() + v * upper.getY(),
@@ -786,7 +786,7 @@ DemoApplication.prototype.getRayTo = function(x, y){
   var vertical = new Ammo.btVector3(this.m_cameraUp.x(),
 				    this.m_cameraUp.y(),
 				    this.m_cameraUp.z());
-  
+
   var cr1 = rayForward.cross(vertical);
   var hor = new Ammo.btVector3(cr1.x(),
 			       cr1.y(),
@@ -804,9 +804,9 @@ DemoApplication.prototype.getRayTo = function(x, y){
   vertical.op_mul(farPlane * tanfov);
 
   var aspect;
-	
+
   if(this.m_glScreenWidth > this.m_glScreenHeight){
-    aspect = (this.m_glScreenWidth+0.0) / (0.0+this.m_glScreenHeight);  
+    aspect = (this.m_glScreenWidth+0.0) / (0.0+this.m_glScreenHeight);
     hor.op_mul(aspect);
   } else {
     aspect = this.m_glScreenHeight / this.m_glScreenWidth;
@@ -968,11 +968,11 @@ DemoApplication.prototype.localCreateRigidBody = function(mass, startTransform, 
 
   // rigidbody is dynamic if and only if mass is non zero, otherwise static
   var isDynamic = (mass != 0.0);
-  
+
   var localInertia = new Ammo.btVector3(0,0,0);
   if(isDynamic)
     shape.calculateLocalInertia(mass,localInertia);
-  
+
   var myMotionState = new Ammo.btDefaultMotionState(startTransform);
   var cInfo = new Ammo.btRigidBodyConstructionInfo(mass,myMotionState,shape,localInertia);
   var body = new Ammo.btRigidBody(cInfo);
@@ -1095,7 +1095,7 @@ DemoApplication.prototype.mouseFunc = function(event){
 	}
       */
       }
-      break;	
+      break;
     case 1:
       // add a point to point constraint for picking
       if(!this.isIdle() && this.m_dynamicsWorld){
@@ -1107,7 +1107,7 @@ DemoApplication.prototype.mouseFunc = function(event){
 	  rayFrom.setValue(this.m_cameraPosition.x(),
 			   this.m_cameraPosition.y(),
 			   this.m_cameraPosition.z());
-	
+
 	var rayCallback = new Ammo.ClosestRayResultCallback(rayFrom,rayTo);
 	this.m_dynamicsWorld.rayTest(rayFrom,rayTo,rayCallback);
 	if(rayCallback.hasHit()){
@@ -1117,11 +1117,11 @@ DemoApplication.prototype.mouseFunc = function(event){
 	    if(!(body.isStaticObject() || body.isKinematicObject())){
 	      pickedBody = body = Ammo.btRigidBody.prototype.upcast(body);
 	      body.activate();
-	      
+
 	      var pickPos = rayCallback.get_m_hitPointWorld();
-	      
+
 	      var localPivot = body.getCenterOfMassTransform().inverse().op_mul(pickPos);
-	      
+
 	      if(this.use6Dof){
 		var tr = new Ammo.btTransform();
 		tr.setIdentity();
@@ -1163,19 +1163,19 @@ DemoApplication.prototype.mouseFunc = function(event){
 		  p2p.setParam(BT_CONSTRAINT_ERP,0.1,1);
 		  p2p.setParam(BT_CONSTRAINT_ERP,0.1,2);
 		*/
-		    
+
 	      }
 	      //this.use6Dof = !this.use6Dof;
-		  
+
 	      //save mouse position for dragging
 	      gOldPickingPos = rayTo;
 	      gHitPos = pickPos;
-		  
+
 	      gOldPickingDist  = (pickPos.op_sub(rayFrom)).length();
 	    }
 	  }
 	}
-	
+
       } else {
 	if(this.m_pickConstraint && this.m_dynamicsWorld){
 	  this.m_dynamicsWorld.removeConstraint(this.m_pickConstraint);
@@ -1217,12 +1217,12 @@ DemoApplication.prototype.mouseMotionFunc = function(event){
 	  rayFrom = this.m_cameraPosition;
 	  var dir = newRayTo-rayFrom;
 	  dir.normalize();
-	  dir *= gOldPickingDist;  
+	  dir *= gOldPickingDist;
 	  newPivotB = rayFrom + dir;
 	}
 	pickCon.getFrameOffsetA().setOrigin(newPivotB);
       }
-      
+
     } else {
       var pickCon = this.m_pickConstraint;
       if(pickCon){
@@ -1248,7 +1248,7 @@ DemoApplication.prototype.mouseMotionFunc = function(event){
       }
     }
   }
-  
+
   var dx, dy;
   dx = x - this.m_mouseOldX;
   dy = y - this.m_mouseOldY;
@@ -1307,7 +1307,7 @@ DemoApplication.prototype.stepLeft = function(){
   this.m_azi -= this.STEPSIZE;
   if(this.m_azi < 0)
     this.m_azi += 360;
-  this.updateCamera(); 
+  this.updateCamera();
 };
 
 /**
@@ -1317,7 +1317,7 @@ DemoApplication.prototype.stepRight = function(){
   this.m_azi += this.STEPSIZE;
   if(this.m_azi >= 360)
     this.m_azi -= 360;
-  this.updateCamera(); 
+  this.updateCamera();
 };
 
 /**
@@ -1343,7 +1343,7 @@ DemoApplication.prototype.stepBack = function(){
 /**
  * Zooms in, eg camera distance -= step
  */
-DemoApplication.prototype.zoomIn = function(){ 
+DemoApplication.prototype.zoomIn = function(){
   this.m_cameraDistance -= 0.4;
   if(this.m_cameraDistance < 0.1)
     this.m_cameraDistance = 0.1;

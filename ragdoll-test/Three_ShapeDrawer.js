@@ -19,7 +19,7 @@ function Three_ShapeDrawer(options){
   var SHADOW_MAP_WIDTH = 2048, SHADOW_MAP_HEIGHT = 1024;
   var MARGIN = 0;
   var SCREEN_WIDTH = this.SCREEN_WIDTH = window.innerWidth;
-  var SCREEN_HEIGHT = this.SCREEN_HEIGHT = window.innerHeight - 2 * MARGIN;
+  var SCREEN_HEIGHT = this.SCREEN_HEIGHT = window.innerHeight;
   var FLOOR = 0;
   var controls, renderer;
   var container, stats;
@@ -62,7 +62,7 @@ function Three_ShapeDrawer(options){
     var ambient = new THREE.AmbientLight( 0xfff9bf );
     th.scene.add( ambient );
 
-    th.light = new THREE.SpotLight( 0xffffff );
+    th.light = new THREE.SpotLight( 0xffb3cf );
     th.light.position.set( -100, 100, 100 );
     th.light.target.position.set(1, 0, 15 );
     th.light.castShadow = true;
@@ -261,7 +261,7 @@ Three_ShapeDrawer.prototype.add = function(body,shape,options){
       var h = shape.getHalfExtentsWithMargin();
       // Add THREE box
       mesh = new THREE.Mesh (new THREE.CubeGeometry( h.x()*2, h.y()*2, h.z()*2 ),
-			     new THREE.MeshLambertMaterial( { color: 0xaaaaaa }));
+			     new THREE.MeshLambertMaterial( { color: 0xffb3cf }));
       //cube.position.set();
       mesh.castShadow = true;
       mesh.receiveShadow = true;
