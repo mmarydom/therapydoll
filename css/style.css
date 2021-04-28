@@ -50,7 +50,7 @@ button:hover, button:focus {
 	position: absolute;
 	top: 420px;
 	left: 740px;
-  animation:button 11s;
+  animation:button 10s;
 }
 
 a{

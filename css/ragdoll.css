@@ -1,7 +1,8 @@
 /* styles */
 /* called by your view template */
 
-@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
 
 html,
 body {
@@ -22,12 +23,11 @@ canvas {
 }
 
 h1 {
-  font-style: bold;
-  color: #2E9939;
-  max-width: 75%;
+  color:#5efffc;
+	font-family: 'Bungee', cursive;
+  font-size: 20px;
+    letter-spacing: 2px;
   text-align: center;
-  margin: auto;
-  padding-bottom: 20px;
 }
 
 h2 {
@@ -39,6 +39,11 @@ h2 {
 }
 
 p {
+  	font-family: 'Fredoka One', cursive;
+  	font-size: 18px;
+  color: #f4ffc2;
+  letter-spacing: 2px;
+  text-align: center;
   width: 50%;
   max-width: 75%;
   font-weight: 500;
